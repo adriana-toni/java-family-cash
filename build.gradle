@@ -19,7 +19,15 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-json'
+	implementation 'com.h2database:h2'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.boot:spring-boot-test-autoconfigure'
+	testImplementation 'org.springframework.data:spring-data-jdbc'
+	testImplementation 'org.junit.jupiter:junit-jupiter-engine'
+
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
@@ -38,6 +46,6 @@ test {
 		showStackTraces true
 
 		// Change to `true` for more verbose test output
-		showStandardStreams = false
+		showStandardStreams = true
 	}
 }
