@@ -4,6 +4,7 @@ import guavas.cashcard.repositories.CashCardRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.Optional;
 
 @RestController
@@ -27,8 +28,7 @@ public class CashCardController {
     }
 
     @PostMapping
-    private ResponseEntity<Void> createCashCard() {
-        return null;
+    private ResponseEntity<Void> createCashCard(@RequestBody CashCard newCashCardRequest) {
+        return ResponseEntity.created(URI.create("/what/should/go/here?")).build();
     }
-
 }
