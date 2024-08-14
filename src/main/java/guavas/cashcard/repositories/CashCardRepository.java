@@ -2,7 +2,7 @@ package guavas.cashcard.repositories;
 
 import guavas.cashcard.CashCard;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface CashCardRepository extends CrudRepository<CashCard, Long> {
+public interface CashCardRepository extends CrudRepository<CashCard, Long>, PagingAndSortingRepository<CashCard, Long> {
 }
