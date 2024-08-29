@@ -17,15 +17,14 @@ class SecurityConfig {
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests(request -> request
-                        .requestMatchers("/cashcards/**")
-                        .hasRole("CARD-OWNER")) // enable RBAC: Replace the .authenticated() call with the hasRole(...) call.
-                .httpBasic(Customizer.withDefaults())
-                .csrf(csrf -> csrf.disable());
+        http.authorizeHttpRequests(request -> request
+                .requestMatchers("/cashcards/**")
+                .hasRole("CARD-OWNER")) // enable RBAC: Replace the .authenticated() call with the hasRole(...) call.
+             .httpBasic(Customizer.withDefaults())
+             .csrf(csrf -> csrf.disable());
         return http.build();
     }
-    
+
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
