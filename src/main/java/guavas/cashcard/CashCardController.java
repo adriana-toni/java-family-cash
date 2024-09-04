@@ -59,4 +59,11 @@ public class CashCardController {
                 .toUri();
         return ResponseEntity.created(locationOfNewCashCard).build();
     }
+
+    @PutMapping("/{requestId}")
+    private ResponseEntity<Void> putCashCard(@PathVariable Long requestId, @RequestBody CashCard cashCardUpdate) {
+        // apenas retorne 204 NO CONTENT por enquanto.
+        return ResponseEntity.noContent().build();
+    }
+
 }
