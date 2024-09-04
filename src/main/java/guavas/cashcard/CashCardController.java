@@ -12,7 +12,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/cashcards")
@@ -22,6 +21,10 @@ public class CashCardController {
 
     public CashCardController(CashCardRepository cashCardRepository) {
         this.cashCardRepository = cashCardRepository;
+    }
+
+    private CashCard findCashCard(Long requestedId, Principal principal) {
+        return cashCardRepository.findByIdAndOwner(requestedId, principal.getName());
     }
 
     @GetMapping
@@ -38,14 +41,12 @@ public class CashCardController {
 
     @GetMapping("/{requestedId}")
     private ResponseEntity<CashCard> findById(@PathVariable Long requestedId, Principal principal) {
-        Optional<CashCard> cashCardOptional = Optional.ofNullable(cashCardRepository.findByIdAndOwner(requestedId, principal.getName()));
-
-//        if (cashCardOptional.isPresent()) {
-//            return ResponseEntity.ok(cashCardOptional.get());
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-        return cashCardOptional.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        CashCard cashCard = findCashCard(requestedId, principal);
+        if (cashCard != null) {
+            return ResponseEntity.ok(cashCard);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping
@@ -62,7 +63,7 @@ public class CashCardController {
 
     @PutMapping("/{requestedId}")
     private ResponseEntity<Void> putCashCard(@PathVariable Long requestedId, @RequestBody CashCard cashCardUpdate, Principal principal) {
-        CashCard cashCard = cashCardRepository.findByIdAndOwner(requestedId, principal.getName());
+        CashCard cashCard = findCashCard(requestedId, principal);
         if (cashCard != null) {
             CashCard updatedCashCard = new CashCard(cashCard.id(), cashCardUpdate.amount(), principal.getName());
             cashCardRepository.save(updatedCashCard);
