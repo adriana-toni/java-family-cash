@@ -44,7 +44,7 @@ class SecurityConfig {
                 .roles("NON-OWNER") // new role
                 .build();
         UserDetails kumar = users
-                .username("kumar2")
+                .username("John")
                 .password(passwordEncoder.encode("xyz789"))
                 .roles("CARD-OWNER")
                 .build();
